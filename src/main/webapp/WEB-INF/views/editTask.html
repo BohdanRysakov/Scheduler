@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New task</title>
+</head>
+<body>
+<hr>
+<form th:method="PATCH" th:action="@{/user/login/{id}(id=${task.getId()})}" th:object="${task}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="description">Enter description: </label>
+    <input type="text" th:field="*{description}" id="description"/>
+    <br/>
+    <label for="date">Enter date: </label>
+    <input type="text" th:field="*{date}" id="date"/>
+    <br/>
+    <label for="priority">Enter priority: </label>
+    <input type="text" th:field="*{priority}" id="priority"/>
+    <br/>
+    <input type="submit" value="Update"/>
+</form>
+</body>
+</html>

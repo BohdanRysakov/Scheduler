@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.getName()}">Room</title>
+</head>
+<body>
+
+<hr>
+<p th:text="${session.user.getId()}" th:unless="${session == null}">[...]</p>
+<hr>
+<p th:text="${user.getName()}">Name</p>
+<p th:text="${user.getId()}">Name</p>
+<br>
+<hr>
+<div th:each="task : ${tasks}">
+    <a th:href="@{/user/login/{id}(id=${task.getId()})}"  th:text="${task.getName()}">Name</a>
+</div>
+
+<br>
+<hr>
+<a th:href="@{/user/login/logout}">Logout</a>
+<a th:href="@{/user/login/createtask}">New Task</a>
+<a th:href="@{/user/edit/{name}(name=${user.getName})}">Edit</a>
+<form th:method="DELETE" th:action="@{/user/delete/{name}(name=${user.getName})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>

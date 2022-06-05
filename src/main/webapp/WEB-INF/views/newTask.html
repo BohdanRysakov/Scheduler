@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New task</title>
+</head>
+<body>
+<hr>
+
+<p th:text="${session.user.getId()}"></p>
+
+<hr>
+<form th:method="POST" th:action="@{/user/login/createtask}" th:object="${task}">
+    <div th:object="${user}"/>
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="description">Enter desription: </label>
+    <input type="text" th:field="*{description}" id="description"/>
+    <br/>
+    <label for="date">Enter date: </label>
+    <input type="text" th:field="*{date}" id="date"/>
+    <br/>
+    <label for="priority">Enter priority: </label>
+    <input type="text" th:field="*{priority}" id="priority"/>
+    <br/>
+    <label for="userId">Enter priority: </label>
+    <input type="hidden" th:field="*{idUser}" id="userId" th:value="${session.user.getId()}">
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>
+
+</body>
+</html>
