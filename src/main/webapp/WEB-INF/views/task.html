@@ -6,13 +6,14 @@
 </head>
 <body>
 <hr>
-dddd
+
 
 <p th:text="${task.getName()}"></p>
 <p th:text="${task.getDescription()}"></p>
 <p th:text="${task.date}"></p>
 
 <hr><a th:href="@{/user/login/{id}/edit(id=${task.getId()})}">Edit</a>
+<hr><a th:href="@{/user/login/kostil}">To Room</a>
 <form th:method="DELETE" th:action="@{/user/login/{id}/delete(id=${task.getId()})}">
     <input type="submit" value="Delete"/>
 </form>

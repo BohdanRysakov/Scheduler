@@ -163,3 +163,292 @@ DELETE from users where id=? and idUser=? [42122-212]
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-06-05 17:57:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Delete [*]* from tasks"; ожидалось "identifier"
+Syntax error in SQL statement "Delete [*]* from tasks"; expected "identifier"; SQL statement:
+Delete * from tasks [42001-212]
+2022-06-05 17:58:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Select * from tasks\000d\000aDelete [*]from tasks where id =9\000d\000aSelect * from tasks"
+Syntax error in SQL statement "Select * from tasks\000d\000aDelete [*]from tasks where id =9\000d\000aSelect * from tasks"; SQL statement:
+Select * from tasks
+Delete from tasks where id =9
+Select * from tasks [42000-212]
+2022-06-05 17:58:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Delete from tasks where id =9\000d\000a[*]Select * from tasks"
+Syntax error in SQL statement "Delete from tasks where id =9\000d\000a[*]Select * from tasks"; SQL statement:
+Delete from tasks where id =9
+Select * from tasks [42000-212]
+2022-06-05 17:58:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; ожидалось "identifier"
+Syntax error in SQL statement "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; expected "identifier"; SQL statement:
+Delete * from tasks where id =9
+Select * from tasks [42001-212]
+2022-06-05 17:58:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; ожидалось "identifier"
+Syntax error in SQL statement "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; expected "identifier"; SQL statement:
+Delete * from tasks where id =9
+Select * from tasks [42001-212]
+2022-06-05 17:58:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; ожидалось "identifier"
+Syntax error in SQL statement "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; expected "identifier"; SQL statement:
+Delete * from tasks where id =9
+Select * from tasks [42001-212]
+2022-06-05 17:58:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; ожидалось "identifier"
+Syntax error in SQL statement "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; expected "identifier"; SQL statement:
+Delete * from tasks where id =9
+Select * from tasks [42001-212]
+2022-06-05 17:58:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; ожидалось "identifier"
+Syntax error in SQL statement "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; expected "identifier"; SQL statement:
+Delete * from tasks where id =9
+Select * from tasks [42001-212]
+2022-06-05 17:58:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; ожидалось "identifier"
+Syntax error in SQL statement "Delete [*]* from tasks where id =9\000d\000aSelect * from tasks"; expected "identifier"; SQL statement:
+Delete * from tasks where id =9
+Select * from tasks [42001-212]
+2022-06-05 17:59:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Delete from tasks where date ='null'\000d\000a[*]Select * from tasks"
+Syntax error in SQL statement "Delete from tasks where date ='null'\000d\000a[*]Select * from tasks"; SQL statement:
+Delete from tasks where date ='null'
+Select * from tasks [42000-212]
+2022-06-05 17:59:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Невозможно преобразование строки "null" в тип "TIMESTAMP"
+Cannot parse "TIMESTAMP" constant "null"; SQL statement:
+Delete from tasks where date ='null' [22007-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:506)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.value.ValueTimestamp.parse(ValueTimestamp.java:88)
+	at org.h2.value.Value.convertToTimestamp(Value.java:1980)
+	at org.h2.value.Value.convertTo(Value.java:1153)
+	at org.h2.value.Value.convertTo(Value.java:1035)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:189)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.dml.Delete.doPrepare(Delete.java:112)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:574)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1339)
+	at org.h2.server.web.WebApp.query(WebApp.java:1137)
+	at org.h2.server.web.WebApp.query(WebApp.java:1113)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.WebServlet.doGet(WebServlet.java:129)
+	at org.h2.server.web.WebServlet.doPost(WebServlet.java:166)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:665)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:750)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.lang.IllegalArgumentException: null
+	at org.h2.util.DateTimeUtils.parseDateValue(DateTimeUtils.java:187)
+	at org.h2.util.DateTimeUtils.parseTimestamp(DateTimeUtils.java:338)
+	at org.h2.value.ValueTimestamp.parse(ValueTimestamp.java:86)
+	... 51 more
+2022-06-05 18:07:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Неизвестный тип данных: "WHERE"
+Unknown data type: "WHERE"; SQL statement:
+Alter table tasks alter column priority where id=10
+Select * from tasks [50004-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:6199)
+	at org.h2.command.Parser.readIfDataType(Parser.java:6040)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:6022)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5897)
+	at org.h2.command.Parser.parseAlterTableAlterColumnType(Parser.java:8920)
+	at org.h2.command.Parser.parseAlterTableAlter(Parser.java:8555)
+	at org.h2.command.Parser.parseAlterTable(Parser.java:8469)
+	at org.h2.command.Parser.parseAlter(Parser.java:7522)
+	at org.h2.command.Parser.parsePrepared(Parser.java:747)
+	at org.h2.command.Parser.parse(Parser.java:691)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:568)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1339)
+	at org.h2.server.web.WebApp.query(WebApp.java:1137)
+	at org.h2.server.web.WebApp.query(WebApp.java:1113)
+	at org.h2.server.web.WebApp.process(WebApp.java:244)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.WebServlet.doGet(WebServlet.java:129)
+	at org.h2.server.web.WebServlet.doPost(WebServlet.java:166)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:665)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:750)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-06-05 18:08:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Update [*]table tasks set  priority='low'  where id=10\000d\000aSelect * from tasks"; ожидалось "identifier"
+Syntax error in SQL statement "Update [*]table tasks set  priority='low'  where id=10\000d\000aSelect * from tasks"; expected "identifier"; SQL statement:
+Update table tasks set  priority='low'  where id=10
+Select * from tasks [42001-212]
+2022-06-05 18:08:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "Update [*]table tasks set  priority='low'  where id=10"; ожидалось "identifier"
+Syntax error in SQL statement "Update [*]table tasks set  priority='low'  where id=10"; expected "identifier"; SQL statement:
+Update table tasks set  priority='low'  where id=10 [42001-212]
+2022-06-05 18:10:03 jdbc[10]: exception
+org.h2.jdbc.JdbcSQLDataException: Ошибка преобразования данных при конвертации "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d0000000000000000120000787074000468696768' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"
+Data conversion error converting "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d0000000000000000120000787074000468696768' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"; SQL statement:
+update tasks Set name=?,description=?,priority=?,date=? where id = ? and idUser=? [22018-212]
+2022-06-05 18:13:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Ошибка преобразования данных при конвертации "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d0000000000000000120000787074000468696768' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"
+Data conversion error converting "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d0000000000000000120000787074000468696768' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"; SQL statement:
+update tasks Set name=?,description=?,priority=?,date=? where id = ? and idUser=? [22018-212]
+2022-06-05 18:14:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Ошибка преобразования данных при конвертации "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d0000000000000000120000787074000468696768' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"
+Data conversion error converting "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d0000000000000000120000787074000468696768' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"; SQL statement:
+update tasks Set name=?,description=?,priority=?,date=? where id = ? and idUser=? [22018-212]
+2022-06-05 18:16:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Ошибка преобразования данных при конвертации "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d0000000000000000120000787074000468696768' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"
+Data conversion error converting "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d0000000000000000120000787074000468696768' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"; SQL statement:
+update tasks Set name=?,description=?,priority=?,date=? where id = ? and idUser=? [22018-212]
+2022-06-05 18:46:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Ошибка преобразования данных при конвертации "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d000000000000000012000078707400036c6f77' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"
+Data conversion error converting "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d000000000000000012000078707400036c6f77' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"; SQL statement:
+Insert into tasks(idUser,name,description,priority,date) values(?,?,?,?,?) [22018-212]
+2022-06-05 18:49:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Ошибка преобразования данных при конвертации "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d000000000000000012000078707400036c6f77' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"
+Data conversion error converting "CAST(X'aced00057e7200197363686564756c65722e6164646974696f6e2e53746174757300000000000000001200007872000e6a6176612e6c616e672e456e756d000000000000000012000078707400036c6f77' AS JAVA_OBJECT) (TASKS: ""PRIORITY"" CHARACTER VARYING(20) NOT NULL)"; SQL statement:
+Insert into tasks(idUser,name,description,priority,date) values(?,?,?,?,?) [22018-212]
+2022-06-05 22:25:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Невозможно преобразование строки "Mon Dec 23 00:00:00 CST 2013" в тип "DATE"
+Cannot parse "DATE" constant "Mon Dec 23 00:00:00 CST 2013"; SQL statement:
+update tasks Set name=?,description=?,priority=?,date=? where id = ? and idUser=? [22007-212]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:506)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.value.ValueDate.parse(ValueDate.java:53)
+	at org.h2.value.Value.convertToDate(Value.java:1854)
+	at org.h2.value.Value.convertTo(Value.java:1147)
+	at org.h2.value.Value.convertForAssignTo(Value.java:1092)
+	at org.h2.table.Column.validateConvertUpdateSequence(Column.java:369)
+	at org.h2.table.Table.convertUpdateRow(Table.java:973)
+	at org.h2.command.dml.SetClauseList.prepareUpdate(SetClauseList.java:140)
+	at org.h2.command.dml.Update.update(Update.java:88)
+	at org.h2.command.dml.DataChangeStatement.update(DataChangeStatement.java:74)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:174)
+	at org.h2.command.Command.executeUpdate(Command.java:252)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:209)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:169)
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$2(JdbcTemplate.java:965)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:651)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:960)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1015)
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1025)
+	at scheduler.dao.TaskDAO.updateTask(TaskDAO.java:35)
+	at scheduler.controllers.TaskController.patchTask(TaskController.java:74)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:880)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:750)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.lang.NumberFormatException: For input string: "Mon Dec 23 00:00:00 CST "
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:668)
+	at java.base/java.lang.Integer.parseInt(Integer.java:786)
+	at org.h2.util.DateTimeUtils.parseDateValue(DateTimeUtils.java:190)
+	at org.h2.value.ValueDate.parse(ValueDate.java:51)
+	... 63 more

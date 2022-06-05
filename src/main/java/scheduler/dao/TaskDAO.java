@@ -33,14 +33,14 @@ public class TaskDAO implements TaskServiceInterface {
     @Override
     public void updateTask(int id, Task task,int userId) {
         jdbcTemplate.update("update tasks Set name=?,description=?,priority=?,date=? where id = ? and idUser=?",
-             task.getName(),task.getDescription(),task.getPriority(),
+             task.getName(),task.getDescription(),task.getPriority().name(),
                 task.getDate(),id,userId);
     }
 
     @Override
     public void createTask(Task task,int userId) {
         jdbcTemplate.update("Insert into tasks(idUser,name,description,priority,date) values(?,?,?,?,?)",
-                userId,task.getName(),task.getDescription(),task.getPriority(),
+                userId,task.getName(),task.getDescription(),task.getPriority().name(),
                 task.getDate());
     }
 

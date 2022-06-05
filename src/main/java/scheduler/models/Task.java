@@ -1,13 +1,19 @@
 package scheduler.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import scheduler.addition.Status;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class Task  {
     private int idUser;
     private String name;
     private String description;
-    private String date;
-    private String priority;
+    private Date date;
+    private Status priority;
     private int id;
 
     public int getId() {
@@ -26,11 +32,12 @@ public class Task  {
         this.idUser = idUser;
     }
 
-    public String getPriority() {
+    public Status getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+
+    public void setPriority(Status priority) {
         this.priority = priority;
     }
 
@@ -43,7 +50,11 @@ public class Task  {
     }
 
     public String getDate() {
-        return date;
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+        if(date==null){
+            return null;
+        }
+        return sd.format(date);
     }
 
     public void setName(String name) {
@@ -55,7 +66,12 @@ public class Task  {
     }
 
     public void setDate(String date) {
-        this.date = date;
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            this.date = sd.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 

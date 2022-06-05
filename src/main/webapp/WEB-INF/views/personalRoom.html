@@ -21,6 +21,8 @@
 <hr>
 <a th:href="@{/user/login/logout}">Logout</a>
 <a th:href="@{/user/login/createtask}">New Task</a>
+<a th:href="@{/user/login/sortByPriority}">Sort By Priority</a>
+<a th:href="@{/user/login/sortByDate}">Sort By Date</a>
 <a th:href="@{/user/edit/{name}(name=${user.getName})}">Edit</a>
 <form th:method="DELETE" th:action="@{/user/delete/{name}(name=${user.getName})}">
     <input type="submit" value="Delete"/>

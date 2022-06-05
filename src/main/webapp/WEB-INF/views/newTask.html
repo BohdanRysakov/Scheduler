@@ -11,7 +11,6 @@
 
 <hr>
 <form th:method="POST" th:action="@{/user/login/createtask}" th:object="${task}">
-    <div th:object="${user}"/>
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <br/>
