@@ -10,9 +10,14 @@
 
 <p th:text="${task.getName()}"></p>
 <p th:text="${task.getDescription()}"></p>
-<p th:text="${task.date}"></p>
+<p th:text="${task.priority}"></p>
+<div th:switch="${task.dateIsEmpty()}">
+    <p th:case="${true}">No data term</p>
+    <p th:case="${false}" th:text="${task.date}"></p>
+</div>
 
-<hr><a th:href="@{/user/login/{id}/edit(id=${task.getId()})}">Edit</a>
+<hr>
+<a th:href="@{/user/login/{id}/edit(id=${task.getId()})}">Edit</a>
 <hr><a th:href="@{/user/login/kostil}">To Room</a>
 <form th:method="DELETE" th:action="@{/user/login/{id}/delete(id=${task.getId()})}">
     <input type="submit" value="Delete"/>

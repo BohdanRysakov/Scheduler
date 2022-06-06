@@ -1,8 +1,11 @@
 package scheduler.models;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import scheduler.addition.Status;
+import scheduler.exceptions.TaskException;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,11 +13,18 @@ import java.util.Date;
 
 public class Task  {
     private int idUser;
+    @NotBlank(message = "Task's name can't be empty")
     private String name;
+    @NotBlank(message = "Description's name can't be empty")
     private String description;
     private Date date;
     private Status priority;
     private int id;
+    private boolean wrongDate;
+
+    public boolean isWrongDate() {
+        return wrongDate;
+    }
 
     public int getId() {
         return id;
@@ -38,7 +48,13 @@ public class Task  {
 
 
     public void setPriority(Status priority) {
-        this.priority = priority;
+        if(priority==null) {
+            this.priority = Status.common;
+        }
+        else{
+            this.priority = priority;
+        }
+
     }
 
     public String getName() {
@@ -50,10 +66,10 @@ public class Task  {
     }
 
     public String getDate() {
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
         if(date==null){
-            return null;
+            return "";
         }
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
         return sd.format(date);
     }
 
@@ -65,13 +81,24 @@ public class Task  {
         this.description = description;
     }
 
-    public void setDate(String date) {
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            this.date = sd.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
+    public void setDate(String date) throws TaskException {
+        if(  date==null || date.equals("")){
+            this.date=null;
         }
+        else {
+            SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                this.date = sd.parse(date);
+            } catch (ParseException e) {
+               wrongDate=true;
+            }
+        }
+    }
+    public boolean dateIsEmpty(){
+        if(getDate().equals("")){
+            return true;
+        }
+        return false;
     }
 
 

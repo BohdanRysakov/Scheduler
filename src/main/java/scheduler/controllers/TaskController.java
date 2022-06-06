@@ -3,18 +3,20 @@ package scheduler.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import scheduler.addition.SortByDate;
 import scheduler.addition.SortById;
 import scheduler.addition.Status;
 import scheduler.dao.TaskDAO;
+import scheduler.exceptions.TaskException;
 import scheduler.models.Task;
 import scheduler.models.User;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Locale;
 
 
 @Controller
@@ -30,29 +32,52 @@ public class TaskController {
         this.taskDAO = taskDAO;
     }
 
-    @GetMapping("/createtask")
-    public String createTask(Model model, @ModelAttribute("task") Task task, @ModelAttribute("user") User user, HttpSession session) {
-        return "newTask";
 
-
-    }
     @GetMapping("/kostil")
-    public String kostil(Model model, @ModelAttribute("task") Task task, @ModelAttribute("user") User user,
+    public String kostil(@ModelAttribute("task") Task task, @ModelAttribute("user") User user,
                          RedirectAttributes redirectAttributes, HttpSession session) {
 
-        redirectAttributes.addFlashAttribute("tasks",taskDAO.showTasks(((User) session.getAttribute("user")).getId()));
+        redirectAttributes.addFlashAttribute("tasks", taskDAO.showTasks(((User) session.getAttribute("user")).getId()));
 
         return "redirect:/user/login";
 
 
     }
 
-    @PostMapping("/createtask")
-    public String postTask(Model model, @ModelAttribute("task") Task task, HttpSession session, RedirectAttributes redirectAttributes) {
+    @GetMapping("/createtask")
+    public String createTask(@ModelAttribute("task") Task task) {
+        return "/newTask";
 
-        if (!statusList.contains(task.getPriority().name().toLowerCase())) {
-            throw new IllegalArgumentException("illegal status");
+
+    }
+
+    @PostMapping("/createtask")
+    public String postTask(@ModelAttribute("task") @Valid Task task,BindingResult bindingResult , HttpSession session,
+                           Model model, RedirectAttributes redirectAttributes) throws TaskException {
+
+        if (bindingResult.hasErrors()) {
+            return "newTask";
         }
+
+        if (task.getPriority() != null && !statusList.contains(task.getPriority().name().toLowerCase())) {
+            redirectAttributes.addFlashAttribute("errorPriority", "Select correct priority");
+            return "redirect:/user/login/createtask";
+        }
+        if(task.getName()==null){
+            redirectAttributes.addFlashAttribute("errorTaskName", "Name is empty!");
+            return "redirect:/user/login/createtask";
+        }
+        if(task.getDescription()==null || task.getDescription().equals("") ||
+                task.getDescription().replaceAll("\\s","").equals("")){
+            redirectAttributes.addFlashAttribute("errorDescription", "Empty description");
+            return "redirect:/user/login/createtask";
+        }
+        if(task.isWrongDate()){
+            redirectAttributes.addFlashAttribute("errorDate", "Invalid date format");
+            return "redirect:/user/login/createtask";
+        }
+
+
 
         User user = (User) session.getAttribute("user");
         taskDAO.createTask(task, (user.getId()));
@@ -66,25 +91,51 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public String getTask(Model model, @PathVariable("id") int id, HttpSession session) {
+    public String getTask(Model model, @PathVariable("id") int id, HttpSession session,
+                          RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("user");
+        if (!taskDAO.isTaskExist(id)){
+            redirectAttributes.addFlashAttribute("error","No task found");
+            return "redirect:/user/login";
+        }
         Task task = taskDAO.getTaskById(id, user.getId());
+        if(task==null){
+            redirectAttributes.addFlashAttribute("errorName","Слушай сюда, сын портовой шлюхи, если такса не твоя - не трогай. " +
+                    "еще раз увижу такую хуйню и я тебе кадык вырву");
+            return "redirect:/user";
+        }
+
         model.addAttribute("task", task);
         return "task";
-
-
     }
 
     @PatchMapping("/{id}")
-    public String patchTask(Model model, @PathVariable("id") int id, @ModelAttribute("task") Task task,
-                            HttpSession session,RedirectAttributes redirectAttributes) {
-        if (!statusList.contains(task.getPriority().name().toLowerCase())) {
-            throw new IllegalArgumentException("illegal status");
+    public String patchTask(@ModelAttribute("task") @Valid Task task,BindingResult bindingResult, @PathVariable("id") int id,
+                            HttpSession session, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "editTask";
+        }
+        if (task.getPriority() != null && !statusList.contains(task.getPriority().name().toLowerCase())) {
+            redirectAttributes.addFlashAttribute("errorPriority", "Select correct priority");
+            return "redirect:/user/login/"+task.getId()+"/edit";
+        }
+        if(task.getName()==null){
+            redirectAttributes.addFlashAttribute("errorTaskName", "Name is empty!");
+            return "redirect:/user/login/"+task.getId()+"/edit";
+        }
+        if(task.getDescription()==null || task.getDescription().equals("") ||
+                task.getDescription().replaceAll("\\s","").equals("")){
+            redirectAttributes.addFlashAttribute("errorDescription", "Empty description");
+            return "redirect:/user/login/"+task.getId()+"/edit";
+        }
+        if(task.isWrongDate()){
+            redirectAttributes.addFlashAttribute("errorDate", "Invalid date format");
+            return "redirect:/user/login/"+task.getId()+"/edit";
         }
         User user = (User) session.getAttribute("user");
         taskDAO.updateTask(id, task, user.getId());
-        redirectAttributes.addFlashAttribute("user",user);
-        redirectAttributes.addFlashAttribute("tasks",taskDAO.showTasks(user.getId()));
+        redirectAttributes.addFlashAttribute("user", user);
+        redirectAttributes.addFlashAttribute("tasks", taskDAO.showTasks(user.getId()));
         String str = "redirect:/user/login/" + id;
         return str;
 
@@ -93,16 +144,35 @@ public class TaskController {
 
 
     @GetMapping("/{id}/edit")
-    public String updateTask(@PathVariable("id") int id, Model model, @ModelAttribute("task") Task task, HttpSession session) {
+    public String updateTask(@PathVariable("id") int id, Model model, HttpSession session,RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("user");
-        task=taskDAO.getTaskById(id,user.getId());
-        model.addAttribute("task",task);
-        return "/editTask";
+        if (!taskDAO.isTaskExist(id)){
+            redirectAttributes.addFlashAttribute("error","No task found");
+            return "redirect:/user/login";
+        }
+        Task task = taskDAO.getTaskById(id, user.getId());
+        if(task==null){
+            redirectAttributes.addFlashAttribute("errorName","Слушай сюда, сын портовой шлюхи, если такса не твоя - не трогай. " +
+                    "еще раз увижу такую хуйню и я тебе кадык вырву");
+            return "redirect:/user";
+        }
+        model.addAttribute("task", task);
+        return "editTask";
     }
 
     @DeleteMapping("/{id}/delete")
     public String delete(@PathVariable("id") int id, HttpSession session, RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("user");
+        if (!taskDAO.isTaskExist(id)){
+            redirectAttributes.addFlashAttribute("error","No task found to delete");
+            return "redirect:/user/login";
+        }
+        Task task = taskDAO.getTaskById(id, user.getId());
+        if(task==null){
+            redirectAttributes.addFlashAttribute("errorName","Слушай сюда, сын портовой шлюхи, если такса не твоя - не трогай. " +
+                    "еще раз увижу такую хуйню и я тебе кадык вырву");
+            return "redirect:/user";
+        }
         taskDAO.deleteTask(id, user.getId());
         List<Task> tasks = taskDAO.showTasks(user.getId());
         redirectAttributes.addFlashAttribute(user);
@@ -113,38 +183,35 @@ public class TaskController {
     }
 
     @GetMapping("/sortByPriority")
-    public String sortByPriority(Model model, HttpSession session,RedirectAttributes redirectAttributes) {
+    public String sortByPriority(HttpSession session, RedirectAttributes redirectAttributes) {
         List<Task> sortedTasks = taskDAO.showTasks(((User) session.getAttribute("user")).getId());
 
-        if(session.getAttribute("directionPriority")=="true"){
-            session.setAttribute("directionPriority","false");
-            SortById.sortById(sortedTasks,true);
-        }
-        else{
-            session.setAttribute("directionPriority","true");
-            SortById.sortById(sortedTasks,false);
+        if (session.getAttribute("directionPriority") == "true") {
+            session.setAttribute("directionPriority", "false");
+            SortById.sortById(sortedTasks, true);
+        } else {
+            session.setAttribute("directionPriority", "true");
+            SortById.sortById(sortedTasks, false);
         }
 
 
-        redirectAttributes.addFlashAttribute("tasks",sortedTasks);
+        redirectAttributes.addFlashAttribute("tasks", sortedTasks);
         return "redirect:/user/login";
 
     }
+
     @GetMapping("/sortByDate")
-    public String sortByDate(Model model, HttpSession session,RedirectAttributes redirectAttributes) {
+    public String sortByDate(HttpSession session, RedirectAttributes redirectAttributes) {
         List<Task> sortedTasks = taskDAO.showTasks(((User) session.getAttribute("user")).getId());
 
-        if(session.getAttribute("directionDate")=="true"){
-            session.setAttribute("directionDate","false");
-            SortByDate.sortByDate(sortedTasks,true);
+        if (session.getAttribute("directionDate") == "true") {
+            session.setAttribute("directionDate", "false");
+            SortByDate.sortByDate(sortedTasks, true);
+        } else {
+            session.setAttribute("directionDate", "true");
+            SortByDate.sortByDate(sortedTasks, false);
         }
-        else{
-            session.setAttribute("directionDate","true");
-            SortByDate.sortByDate(sortedTasks,false);
-        }
-
-
-        redirectAttributes.addFlashAttribute("tasks",sortedTasks);
+        redirectAttributes.addFlashAttribute("tasks", sortedTasks);
 
         return "redirect:/user/login";
 

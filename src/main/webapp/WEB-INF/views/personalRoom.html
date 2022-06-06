@@ -5,7 +5,7 @@
     <title th:text="${user.getName()}">Room</title>
 </head>
 <body>
-
+<div style="color:red" th:if="${error}" th:text="${error}"> Error</div>
 <hr>
 <p th:text="${session.user.getId()}" th:unless="${session == null}">[...]</p>
 <hr>
@@ -17,7 +17,6 @@
     <a th:href="@{/user/login/{id}(id=${task.getId()})}"  th:text="${task.getName()}">Name</a>
 </div>
 
-<br>
 <hr>
 <a th:href="@{/user/login/logout}">Logout</a>
 <a th:href="@{/user/login/createtask}">New Task</a>

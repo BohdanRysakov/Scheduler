@@ -7,11 +7,15 @@
 <body>
 
 <form th:method="POST" th:action="@{/user/create}" th:object="${user}">
+    <div style="color:red" th:if="${errorName}" th:text="${errorName}">Name Error</div>
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
     <br/>
-    <label for="password">Enter password: </label>
+    <div style="color:red" th:if="${errorPassword}" th:text="${errorPassword}">Name Error</div>
+    <label for="password">Create password: </label>
     <input type="text" th:field="*{password}" id="password"/>
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
     <br/>
     <input type="submit" value="Registration"/>
 </form>

@@ -3,17 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign in</title>
+    <link href="/resources/css/style.css" rel="stylesheet"/>
+    <link rel="icon" href="img/icon.png" type="image/png">
+    <link rel="shortcut icon" href="img/icon.png" type="image/png">
 </head>
 <body>
-<form th:method="POST" th:action="@{/user/login}" th:object="${user}">
-    <label for="login">Enter login: </label>
-    <input type="text" th:field="*{name}" id="login"/>
-    <br/>
-    <label for="password">Enter password: </label>
-    <input type="text" th:field="*{password}" id="password"/>
-    <br/>
-    <input type="submit" value="Log in"/>
-</form>
-<a th:href="@{/user/registration}">Registration</a>
+    <div class='container-form'>
+        <div class="form-all">
+            <h1 class="form-text">Log in</h1>
+            <div class="form-inside">
+                <form th:method="POST" th:action="@{/user/login}" th:object="${user}"  modelAttribute="user">
+                    <div style="color:red" th:if="${errorName}" th:text="${errorName}">Name Error</div>
+                    <label for="name">Username: </label>
+                    <br/><br/>
+                    <input type="text" th:field="*{name}" id="name" placeholder="Enter your username..."/>
+                    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+                    <br/><br/>
+                    <div style="color:red" th:if="${errorPassword}" th:text="${errorPassword}">Name Error</div>
+                    <label for="password">Password: </label>
+                    <br/><br/>
+                    <input type="text" th:field="*{password}" id="password" placeholder="Enter your password..."/>
+                    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+                    <br/><br/><br/><br/>
+                    <input class="input-button" type="submit" value="Log in"/>
+                </form>
+                <br/>
+                <a th:href="@{/user/registration}">Registration</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

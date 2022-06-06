@@ -7,17 +7,26 @@
 <body>
 <hr>
 <form th:method="PATCH" th:action="@{/user/login/{id}(id=${task.getId()})}" th:object="${task}">
+    <div style="color:red" th:if="${errorTaskName}" th:text="${errorTaskName}">Name Error</div>
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
     <br/>
+    <div style="color:red" th:if="${errorDescription}" th:text="${errorDescription}">Name Error</div>
     <label for="description">Enter description: </label>
     <input type="text" th:field="*{description}" id="description"/>
+    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>
     <br/>
+    <div style="color:red" th:if="${errorDate}" th:text="${errorDate}">Date Error</div>
     <label for="date">Enter date: </label>
     <input type="text" th:field="*{date}" id="date"/>
+    <div style="color:red" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</div>
     <br/>
+
+    <div style="color:red" th:if="${errorPriority}" th:text="${errorPriority}">Name Error</div>
     <label for="priority">Enter priority: </label>
     <input type="text" th:field="*{priority}" id="priority"/>
+    <div style="color:red" th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}">Priority Error</div>
     <br/>
     <input type="submit" value="Update"/>
 </form>

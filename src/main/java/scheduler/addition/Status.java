@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum Status {
+    common(0),
     low(1),
     medium(2),
     high(3),
