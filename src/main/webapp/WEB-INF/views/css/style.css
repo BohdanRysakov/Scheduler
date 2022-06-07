@@ -3,9 +3,6 @@ body{
     background-color: #faeed9;
     height: 100vh;
 }
-.container-form{
-    margin: central;
-}
 .form-all label{
     font-size: 20px;
 }
@@ -48,17 +45,34 @@ body{
     border-top: none;
     border-left: none;
     border-right: none;
+    background: transparent;
 }
 .form-inside label{
     font-weight: 100;
     color: #575757;
     font-size: 100%;
 }
+.link{
+    text-align: center;
+    margin: 20%;
+    /* height: 50%;
+    width: 40%; */
 
-.form-inside a{
-    position: absolute;
-    right: 20%;
+}
+.form-inside h6{
+    font-weight: normal;
+    font-size: 11px;
+    text-align: center;
+}
+.link p{
+    font-size: 11px;
+    text-align: center;
+}
+.link a{
     text-decoration: underline;
+    /* font-weight: 100;
+    color: #575757;
+    font-size: 100%; */
 }
 .form-inside .input-button{
     background-color: #fdf4e4;
@@ -72,4 +86,34 @@ body{
        inset 0 -3em 3em rgba(0,0,0,0.1),
              0 0  0 2px rgb(0,0,0,0.1),
              0.8em 0.3em 1em rgba(0,0,0,0.3);
+}
+.form-inside span{
+    position: absolute;
+    z-index: -1;
+    color: #c1c1d9;
+}
+.date_label label{
+    position: relative;
+    display: inline-bloc;
+    width: 352px;
+    height: 72px;
+    border: 1px solid #292929;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.date{
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0.5em 10px 1em;
+    box-sizing: border-box;
+    letter-spacing: 0.5em;
+}
+.date_label span{
+    position: absolute;
+    z-index: -1;
+    color: #c1c1d9;
+}
+.date_label input{
+    background: transparent;
+    border: none;
 }

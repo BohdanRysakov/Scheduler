@@ -3,23 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>New task</title>
+    <link rel="stylesheet" href='css/style.css'>
+    <link rel="icon" href="img/icon.png" type="image/png">
+    <link rel="shortcut icon" href="img/icon.png" type="image/png">
+    <script src="js/input_date.js"></script> 
 </head>
 <body>
-<hr>
-<form th:method="PATCH" th:action="@{/user/login/{id}(id=${task.getId()})}" th:object="${task}">
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <br/>
-    <label for="description">Enter description: </label>
-    <input type="text" th:field="*{description}" id="description"/>
-    <br/>
-    <label for="date">Enter date: </label>
-    <input type="text" th:field="*{date}" id="date"/>
-    <br/>
-    <label for="priority">Enter priority: </label>
-    <input type="text" th:field="*{priority}" id="priority"/>
-    <br/>
-    <input type="submit" value="Update"/>
-</form>
+    <div class='container-form'>
+        <div class="form-all">
+            <h1>Edit task</h1>
+            <div class="form-inside">
+                <hr>
+                <form th:method="PATCH" th:action="@{/user/login/{id}(id=${task.getId()})}" th:object="${task}">
+                    <label for="name">Enter name: </label>
+                    <br/><br/>
+                    <input type="text" th:field="*{name}" id="name"/>
+                    <br/><br/>
+                    <label for="description">Enter description: </label>
+                    <br/><br/>
+                    <input type="text" maxlength="250" th:field="*{description}" id="description"/>
+                    <br/><br/>
+                    <div class="date_label">
+                        <label for="date">
+                            Enter date:
+                            <br/><br/>
+                            <spanclass="date"></span>XXXXXX</span>
+                            <input class = "date" type="text" maxlength="6" th:field="*{date}" id="date"/>
+                        </label>
+                    </div>
+                    <br/><br/>
+                    <label for="priority">Enter priority: </label>
+                    <br/><br/>
+                    <input type="text" th:field="*{priority}" id="priority"/>
+                    <br/><br/><br/>
+                    <input class="input-button" type="submit" value="Update"/>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
