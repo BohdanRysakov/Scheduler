@@ -1,0 +1,259 @@
+
+body, html{
+    background-color: #faeed9;
+   width: 100%;
+    height: 100%;
+    margin: 0;
+}
+header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.taskMenu{
+    display: inline-block;
+}
+.flex {
+   display: flex;
+   justify-content: space-between;
+}
+.editTask {
+	display: inline-block;
+}
+.taskData{
+	margin-left: 15px;
+	font-family:monospace;
+}
+.form-all label{
+    font-size: 20px;
+}
+.form-all{
+    position: absolute;
+    height: 60%;
+    width: 30%;
+    top: 20%;
+    left: 35%;
+    right: 35%;
+    bottom: 20%;
+    background-color: #ffffff;
+    border-radius: 5%;
+    box-shadow:
+       inset 0 -3em 3em rgba(0,0,0,0.1),
+             0 0  0 2px rgb(255,255,255),
+             0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
+.form-all h1{
+    text-align: center;
+
+}
+
+.form-inside{
+    /* position: absolute;
+    height: 70%;
+    width: 30%;
+    top: 15%;
+    left: 35%;
+    right: 35%;
+    bottom: 10%; */
+    margin: 0% 20% 0% 20%;
+
+}
+.form-inside input{
+    width: 90%;
+    height: 300%;
+    margin: 0% 10%;
+    /* background-color: #faeed9; */
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: transparent;
+}
+.form-inside label{
+    font-weight: 100;
+    color: #575757;
+    font-size: 100%;
+}
+.link{
+    text-align: center;
+    margin: 20%;
+    /* height: 50%;
+    width: 40%; */
+
+}
+.form-inside h6{
+    font-weight: normal;
+    font-size: 11px;
+    text-align: center;
+}
+.link p{
+    font-size: 11px;
+    text-align: center;
+}
+.link a{
+    text-decoration: underline;
+    /* font-weight: 100;
+    color: #575757;
+    font-size: 100%; */
+}
+.form-inside .input-button{
+    background-color: #fdf4e4;
+    font-weight: 500;
+    width: 100%;
+    height: 100%;
+    margin: 0% 0% 0% 0%;
+    border-bottom: none;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow:
+       inset 0 -3em 3em rgba(0,0,0,0.1),
+             0 0  0 2px rgb(0,0,0,0.1),
+             0.8em 0.3em 1em rgba(0,0,0,0.3);
+}
+.form-inside span{
+    position: absolute;
+    z-index: -1;
+    color: #c1c1d9;
+}
+.date_label label{
+    position: relative;
+    display: inline-bloc;
+    width: 352px;
+    height: 72px;
+    border: 1px solid #292929;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.date{
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0.5em 10px 1em;
+    box-sizing: border-box;
+    letter-spacing: 0.5em;
+}
+.date_label span{
+    position: absolute;
+    z-index: -1;
+    color: #c1c1d9;
+}
+.testInForm{
+	font-family: arial;
+	font-variant: small-caps;
+	font-size: 20px;
+}
+.formEdit{
+	      margin-top: 20px;
+	      margin-left: 10%;
+ 
+}
+.date_label input{
+    background: transparent;
+    border: none;
+}
+.menu {
+  flex-grow: 1;
+  float:right;
+}
+.menu ul {
+	 float:right;
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.menu li {
+  margin-right: 20px;
+}
+.menu li:last-child {
+  margi	n-right: 0;
+}
+.menu a {
+  padding: 8px 10px;
+}
+.menu ul {
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 18px;
+  list-style: none;
+}
+textarea {
+				padding: 10px;
+				vertical-align: top;
+				width: 200px;
+			}
+			textarea:focus {
+				outline-style: solid;
+				outline-width: 2px;
+			}
+.menu a,
+.menu .active {
+  display: block;
+  padding: 8px 10px;
+  text-transform: uppercase;
+  letter-spacing: .27em;
+}
+.menu a {
+  color: #000;
+  text-decoration: none;
+}
+.task {
+	vertical-align:center;
+	width: 99.8%; /* Ширина слоя */
+
+border: 1px solid black; /* Параметры границы */
+
+}
+.taskChild {
+	margin-left: 10px;
+	display: inline-block;
+}
+
+.task  ul{
+	
+	display: inline-block;
+	 float:right;
+  display: flex;
+  flex-flow: row nowrap;
+  list-style: none;
+}
+.task li {
+	align:center;
+	margin-right: 20px;
+}
+.task a {
+	 padding: 8px 10px;
+	 color: #000;
+  text-decoration: none;
+}
+
+
+
+
+
+#central {
+   
+	background-color: rgba(226,210,108,0.5);
+	
+    width: 60%;
+    min-height: 100%;
+    margin-left:20%;
+	 border-radius: 5%;
+    box-shadow:
+       inset 0 -3em 3em rgba(0,0,0,0.1),
+             0 0  0 2px rgb(255,255,255),
+             0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
+
+#name {
+    margin-left: 45%;
+	font-family: arial;
+}
+#editAccount {
+	line-height: 20px;
+	font-size: 16px;
+	margin-right:15%;
+	
+}
