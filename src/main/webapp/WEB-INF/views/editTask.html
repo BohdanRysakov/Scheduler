@@ -2,33 +2,102 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New task</title>
+    <title>Edit User</title>
+    <link href="/resources/css/style.css" rel="stylesheet"/>
+    <script type="text/javascript"
+    src="/resources/js/autosize.js"></script>
+	   <link rel="icon" href="/resources/css/icon.png" type="image/png">
+  
+   
 </head>
 <body>
-<hr>
-<form th:method="PATCH" th:action="@{/user/login/{id}(id=${task.getId()})}" th:object="${task}">
-    <div style="color:red" th:if="${errorTaskName}" th:text="${errorTaskName}">Name Error</div>
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-    <br/>
-    <div style="color:red" th:if="${errorDescription}" th:text="${errorDescription}">Name Error</div>
-    <label for="description">Enter description: </label>
-    <input type="text" th:field="*{description}" id="description"/>
-    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</div>
-    <br/>
-    <div style="color:red" th:if="${errorDate}" th:text="${errorDate}">Date Error</div>
-    <label for="date">Enter date: </label>
-    <input type="text" th:field="*{date}" id="date"/>
-    <div style="color:red" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date Error</div>
-    <br/>
+<script type="text/javascript"
+    src="/resources/js/autosize.js"></script>
+<script type="text/javascript">
+ src="autoresize.jquery.js">
+    $('textarea#comment').autoResize({
+        // On resize:
+        onResize : function() {
+            $(this).css({opacity:0.8});
+        },
+        // After resize:
+        animateCallback : function() {
+            $(this).css({opacity:1});
+        },
+        // Quite slow animation:
+        animateDuration : 300,
+        // More extra space:
+        extraSpace : 40
+    });
+</script>
+<header>
+  <div class="logo">
+    
+      <img src="img/logo.jfif" width="60" height="60px"/>
+    
+  </div>
 
-    <div style="color:red" th:if="${errorPriority}" th:text="${errorPriority}">Name Error</div>
-    <label for="priority">Enter priority: </label>
-    <input type="text" th:field="*{priority}" id="priority"/>
-    <div style="color:red" th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}">Priority Error</div>
-    <br/>
-    <input type="submit" value="Update"/>
-</form>
+    <p id="nameMenu" th:text="${user.name}">Name</p>
+
+
+    <div class="menu">
+        <ul>
+            <li> <a th:href="@{/user/login/createtask}">New Task</a></li>
+            <li><a th:href="@{/user/edit/{name}(name=${user.getName})}">Edit Account</a></li>
+            <li> <a th:href="@{/user/login/logout}">Logout</a></li>
+
+        </ul>
+    </div>
+  <div class="tel">
+  </div>
+</header>
+
+<div id="central">
+
+
+        <div class="formEdit">
+            <h1 id="name">Edit Task</h1>
+         
+
+                <form th:method="PATCH" th:action="@{/user/login/{id}(id=${task.id})}" th:object="${task}"  modelAttribute="user">
+
+                    <div style="color:red" th:if="${errorTaskName}" th:text="${errorTaskName}">Name Error</div>
+                    <label for="name1">Name: </label>
+                    <input type="text" id="name1" th:field="*{name}"/>
+                    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+                    <br/><br/>
+                    <div style="color:red" th:if="${errorDescription}" th:text="${errorDescription}">Name Error</div>
+                    <label for="description">Description: </label>
+                    <textarea type="text" maxlength="255" id="description" th:field="*{description}">
+                     </textarea>
+                    <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">description Error</div>
+                    <br/><br/>
+                    <div style="color:red" th:if="${errorDate}" th:text="${errorDate}">Date Error</div>
+                    <label for="date">Date: </label>
+                    <input type="text" th:field="*{date}" id="date" placeholder="YYYY-MM-DD"/>
+                    <br/><br/>
+                    <label for="priority">Priority: </label>
+                    <select name="priority" id="priority">
+                        <option value="low">low</option>
+                        <option value="medium">medium</option>
+                        <option value="high">high</option>
+                        <option value="critical">critical</option>
+                    </select>
+                    <br/><br/>
+                    <input type="hidden" th:field="*{idUser}" id="idUser" th:value="${session.user.getId()}">
+                    <input class="input-button" type="submit" value="Edit"/>
+                </form>
+                <br/>
+                <a th:href="@{/user/registration}">Back to Acc</a>
+            </div>
+      
+  
+</div>
+
+
+<script src='/resources/js/autosize.js'></script>
+<script>
+		autosize(document.querySelectorAll('textarea'));
+	</script>
 </body>
 </html>

@@ -2,29 +2,82 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${user.getName()}">Room</title>
+    <title>Room</title>
+    <link href="/resources/css/style.css" rel="stylesheet"/>
+    
+
+     <link rel="icon" href="/resources/css/icon.png" type="image/png">
+   
 </head>
 <body>
-<div style="color:red" th:if="${error}" th:text="${error}"> Error</div>
-<hr>
-<p th:text="${session.user.getId()}" th:unless="${session == null}">[...]</p>
-<hr>
-<p th:text="${user.getName()}">Name</p>
-<p th:text="${user.getId()}">Name</p>
-<br>
-<hr>
-<div th:each="task : ${tasks}">
-    <a th:href="@{/user/login/{id}(id=${task.getId()})}"  th:text="${task.getName()}">Name</a>
+<header>
+  <div class="logo">
+    
+      <img class="src" src="/resources/img/logo.jfif" width="60" height="60px"/>
+    
+  </div>
+ 
+   <p id="nameMenu" th:text="${user.name}">Name</p>
+ 
+
+  <div class="menu">
+    <ul>
+      <li> <a th:href="@{/user/login/createtask}">New Task</a></li>
+      <li><a th:href="@{/user/edit/{name}(name=${user.getName})}">Edit Account</a></li>
+      <li> <a th:href="@{/user/login/logout}">Logout</a></li>
+
+    </ul>
+
+  </div>
+  <div class="tel">
+  </div>
+</header>
+
+<div id="central">
+    <div class="menu">
+        <ul>
+            <li> <a th:href="@{/user/login/sortByPriority}">Sort by Priority</a></li>
+            <li><a th:href="@{/user/login/sortByDate}">Sort by Date</a></li>
+
+        </ul>
+    </div>
+    <br>
+    <br>
+    <hr>
+    <div style="color:red" th:if="${error}" th:text="${error}">Name Error</div>
+
+    <table class="table">
+        <caption>Task's list</caption>
+        <col width="20%">
+        <col width="30%">
+        <col width="30%">
+        <col width="20%">
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Priority</th>
+            <th></th>
+        </tr>
+        <div class="task" th:each="task : ${tasks}">
+            <tr>
+                <th><a class="taskChild" th:href="@{/user/login/{id}(id=${task.getId()})}"  th:text="${task.getName()}">Name</a></th>
+                <th><p th:text="${task.date}"></p></th>
+                <th><p th:text="${task.priority}"></p></th>
+                <th class="tableLastRow"><a class="tableEditButton" th:href="@{/user/login/{id}/edit(id=${task.getId()})}">Edit Task</a>
+                    <form display="inline-block" th:method="DELETE" th:action="@{/user/login/{id}/delete(id=${task.getId()})}">
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </th>
+
+            </tr>
+
+        </div>
+
+    </table>
+
 </div>
 
-<hr>
-<a th:href="@{/user/login/logout}">Logout</a>
-<a th:href="@{/user/login/createtask}">New Task</a>
-<a th:href="@{/user/login/sortByPriority}">Sort By Priority</a>
-<a th:href="@{/user/login/sortByDate}">Sort By Date</a>
-<a th:href="@{/user/edit/{name}(name=${user.getName})}">Edit</a>
-<form th:method="DELETE" th:action="@{/user/delete/{name}(name=${user.getName})}">
-    <input type="submit" value="Delete"/>
-</form>
+
+
 </body>
 </html>

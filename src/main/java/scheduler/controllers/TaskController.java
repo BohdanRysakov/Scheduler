@@ -10,7 +10,7 @@ import scheduler.addition.SortByDate;
 import scheduler.addition.SortById;
 import scheduler.addition.Status;
 import scheduler.dao.TaskDAO;
-import scheduler.exceptions.TaskException;
+
 import scheduler.models.Task;
 import scheduler.models.User;
 
@@ -45,7 +45,9 @@ public class TaskController {
     }
 
     @GetMapping("/createtask")
-    public String createTask(@ModelAttribute("task") Task task) {
+    public String createTask(@ModelAttribute("task") Task task,HttpSession session,Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute(user);
         return "/newTask";
 
 
@@ -53,9 +55,11 @@ public class TaskController {
 
     @PostMapping("/createtask")
     public String postTask(@ModelAttribute("task") @Valid Task task,BindingResult bindingResult , HttpSession session,
-                           Model model, RedirectAttributes redirectAttributes) throws TaskException {
+                           Model model, RedirectAttributes redirectAttributes){
 
         if (bindingResult.hasErrors()) {
+            User user = (User) session.getAttribute("user");
+            model.addAttribute(user);
             return "newTask";
         }
 
@@ -81,11 +85,7 @@ public class TaskController {
 
         User user = (User) session.getAttribute("user");
         taskDAO.createTask(task, (user.getId()));
-        model.addAttribute("user", user);
-        model.addAttribute("tasks", taskDAO.showTasks(user.getId()));
-        List<Task> tasks = taskDAO.showTasks(user.getId());
-        redirectAttributes.addFlashAttribute(user);
-        redirectAttributes.addFlashAttribute("tasks", tasks);
+        session.setAttribute("tasks",taskDAO.showTasks(user.getId()));
         return "redirect:/user/login";
 
     }
@@ -94,17 +94,22 @@ public class TaskController {
     public String getTask(Model model, @PathVariable("id") int id, HttpSession session,
                           RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:";
+        }
+
         if (!taskDAO.isTaskExist(id)){
             redirectAttributes.addFlashAttribute("error","No task found");
+
             return "redirect:/user/login";
         }
         Task task = taskDAO.getTaskById(id, user.getId());
         if(task==null){
-            redirectAttributes.addFlashAttribute("errorName","Слушай сюда, сын портовой шлюхи, если такса не твоя - не трогай. " +
-                    "еще раз увижу такую хуйню и я тебе кадык вырву");
+            redirectAttributes.addFlashAttribute("error","Nice try");
+            taskDAO.createTask(punishment(user.getId()), user.getId());
             return "redirect:/user";
         }
-
+        model.addAttribute("user",user);
         model.addAttribute("task", task);
         return "task";
     }
@@ -112,6 +117,10 @@ public class TaskController {
     @PatchMapping("/{id}")
     public String patchTask(@ModelAttribute("task") @Valid Task task,BindingResult bindingResult, @PathVariable("id") int id,
                             HttpSession session, RedirectAttributes redirectAttributes) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:";
+        }
         if (bindingResult.hasErrors()) {
             return "editTask";
         }
@@ -132,10 +141,7 @@ public class TaskController {
             redirectAttributes.addFlashAttribute("errorDate", "Invalid date format");
             return "redirect:/user/login/"+task.getId()+"/edit";
         }
-        User user = (User) session.getAttribute("user");
         taskDAO.updateTask(id, task, user.getId());
-        redirectAttributes.addFlashAttribute("user", user);
-        redirectAttributes.addFlashAttribute("tasks", taskDAO.showTasks(user.getId()));
         String str = "redirect:/user/login/" + id;
         return str;
 
@@ -146,46 +152,54 @@ public class TaskController {
     @GetMapping("/{id}/edit")
     public String updateTask(@PathVariable("id") int id, Model model, HttpSession session,RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:";
+        }
         if (!taskDAO.isTaskExist(id)){
             redirectAttributes.addFlashAttribute("error","No task found");
             return "redirect:/user/login";
         }
         Task task = taskDAO.getTaskById(id, user.getId());
         if(task==null){
-            redirectAttributes.addFlashAttribute("errorName","Слушай сюда, сын портовой шлюхи, если такса не твоя - не трогай. " +
-                    "еще раз увижу такую хуйню и я тебе кадык вырву");
+            redirectAttributes.addFlashAttribute("error","Nice try");
+
+                taskDAO.createTask(punishment(user.getId()), user.getId());
+
             return "redirect:/user";
         }
         model.addAttribute("task", task);
+        model.addAttribute("user", user);
         return "editTask";
     }
 
     @DeleteMapping("/{id}/delete")
     public String delete(@PathVariable("id") int id, HttpSession session, RedirectAttributes redirectAttributes) {
         User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:";
+        }
         if (!taskDAO.isTaskExist(id)){
             redirectAttributes.addFlashAttribute("error","No task found to delete");
+
             return "redirect:/user/login";
         }
         Task task = taskDAO.getTaskById(id, user.getId());
         if(task==null){
-            redirectAttributes.addFlashAttribute("errorName","Слушай сюда, сын портовой шлюхи, если такса не твоя - не трогай. " +
-                    "еще раз увижу такую хуйню и я тебе кадык вырву");
+            taskDAO.createTask(punishment(user.getId()), user.getId());
+            redirectAttributes.addFlashAttribute("error","Nice try");
             return "redirect:/user";
         }
         taskDAO.deleteTask(id, user.getId());
-        List<Task> tasks = taskDAO.showTasks(user.getId());
-        redirectAttributes.addFlashAttribute(user);
-        redirectAttributes.addFlashAttribute("tasks", tasks);
-
-
+        session.setAttribute("tasks",taskDAO.showTasks(user.getId()));
         return "redirect:/user/login";
     }
 
     @GetMapping("/sortByPriority")
     public String sortByPriority(HttpSession session, RedirectAttributes redirectAttributes) {
-        List<Task> sortedTasks = taskDAO.showTasks(((User) session.getAttribute("user")).getId());
-
+        List<Task> sortedTasks = (List<Task>) session.getAttribute("tasks");
+        if(sortedTasks==null){
+            return null;
+        }
         if (session.getAttribute("directionPriority") == "true") {
             session.setAttribute("directionPriority", "false");
             SortById.sortById(sortedTasks, true);
@@ -195,15 +209,17 @@ public class TaskController {
         }
 
 
-        redirectAttributes.addFlashAttribute("tasks", sortedTasks);
+        session.setAttribute("tasks",sortedTasks);
         return "redirect:/user/login";
 
     }
 
     @GetMapping("/sortByDate")
     public String sortByDate(HttpSession session, RedirectAttributes redirectAttributes) {
-        List<Task> sortedTasks = taskDAO.showTasks(((User) session.getAttribute("user")).getId());
-
+        List<Task> sortedTasks = (List<Task>) session.getAttribute("tasks");
+        if(sortedTasks==null){
+            return null;
+        }
         if (session.getAttribute("directionDate") == "true") {
             session.setAttribute("directionDate", "false");
             SortByDate.sortByDate(sortedTasks, true);
@@ -211,10 +227,18 @@ public class TaskController {
             session.setAttribute("directionDate", "true");
             SortByDate.sortByDate(sortedTasks, false);
         }
-        redirectAttributes.addFlashAttribute("tasks", sortedTasks);
+      session.setAttribute("tasks",sortedTasks);
 
         return "redirect:/user/login";
 
+    }
+    private Task punishment(int id){
+        Task task = new Task();
+        task.setPriority(Status.critical);
+        task.setDescription("I was trying to poke and pry and i am really sorry");
+        task.setName("Never do this again");
+        task.setIdUser(id);
+        return task;
     }
 
 

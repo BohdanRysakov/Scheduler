@@ -2,23 +2,66 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Update person</title>
+    <title>Edit User</title>
+    <link href="/resources/css/style.css" rel="stylesheet"/>
+
+	   <link rel="icon" href="/resources/css/icon.png" type="image/png">
+  
+   
 </head>
 <body>
+<header>
+  <div class="logo">
+    
+      <img src="/resources/img/logo.jfif" width="60" height="60px"/>
+    
+  </div>
 
-<form th:method="PATCH" th:action="@{/user/edit/{name}(name=${user.getName()})}" th:object="${user}">
-    <div style="color:red" th:if="${errorName}" th:text="${errorName}">Name Error</div>
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-    <br/>
-    <label for="email">Enter password: </label>
-    <div style="color:red" th:if="${errorPassword}" th:text="${errorPassword}">Name Error</div>
-    <input type="text" th:field="*{password}" id="email"/>
-    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
-    <br/>
-    <input type="submit" value="Update!"/>
-</form>
+    <p id="nameMenu" th:text="${user.name}">Name</p>
+
+
+    <div class="menu">
+        <ul>
+            <li> <a th:href="@{/user/login/createtask}">New Task</a></li>
+            <li><a th:href="@{/user/edit/{name}(name=${user.name})}">Edit Account</a></li>
+            <li> <a th:href="@{/user/login/logout}">Logout</a></li>
+
+        </ul>
+
+    </div>
+  <div class="tel">
+  </div>
+</header>
+
+<div id="central">
+  <h1 id="name">Edit User</h1>
+<div class='container-form'>
+
+        <div class="formEdit">
+
+                <form th:method="PATCH" th:action="@{/user/edit/{name}(name=${user.name})}" th:object="${user}"  modelAttribute="user">
+                    <label for="name1">Enter name: </label>
+                    <br/><br/>
+                    <input type="text" th:field="*{name}" id="name1" placeholder="Enter username..."/>
+                    <div style="color:red" th:if="${errorName}" th:text="${errorName}">Name Error</div>
+                    <br/><br/>
+                    <label for="password">Enter password: </label>
+                    <br/><br/>
+                    <input type="text" th:field="*{password}" id="password" placeholder="Enter your password..."/>
+                    <div style="color:red" th:if="${errorPassword}" th:text="${errorPassword}">Password Error</div>
+                    <br/><br/><br/>
+                    <input class="input-button" type="submit" value="Edit Account"/>
+                </form>
+                <br/>
+            <form th:method="DELETE" th:action="@{/user/delete/{name}(name=${user.getName})}">
+                <input type="submit" value="Delete Account"/>
+            </form>
+            <br>
+                <a th:href="@{/user/login}">Back to User Room</a>
+            
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

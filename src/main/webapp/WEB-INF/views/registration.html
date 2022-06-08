@@ -3,21 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
+    <link href="/resources/css/style.css" rel="stylesheet"/>
+    <link rel="icon" href="/resources/css/icon.png" type="image/png">
+    <link rel="shortcut icon" href="/resources/css/icon.png" type="image/png">
 </head>
 <body>
-
-<form th:method="POST" th:action="@{/user/create}" th:object="${user}">
-    <div style="color:red" th:if="${errorName}" th:text="${errorName}">Name Error</div>
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-    <br/>
-    <div style="color:red" th:if="${errorPassword}" th:text="${errorPassword}">Name Error</div>
-    <label for="password">Create password: </label>
-    <input type="text" th:field="*{password}" id="password"/>
-    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
-    <br/>
-    <input type="submit" value="Registration"/>
-</form>
+    <div class='container-form'>
+        <div class="form-all">
+            <h1>Sign Up</h1>
+            <div class="form-inside">
+                <form th:method="POST" th:action="@{/user/create}" th:object="${user}">
+                    <label for="name1">Enter name: </label>
+                    <br/><br/>
+                    <input type="text" th:field="*{name}" id="name1" placeholder="Enter your username..."/>
+                    <div style="color:red" th:if="${errorName}" th:text="${errorName}">Name Error</div>
+                    <br/><br/>
+                    <label for="password">Enter password: </label>
+                    <br/><br/>
+                    <input type="text" th:field="*{password}" id="password" placeholder="Enter your password..."/>
+                    <div style="color:red" th:if="${errorPassword}" th:text="${errorPassword}">Password Error</div>
+                    <br/><br/>
+                    <input class="input-button" type="submit" value="Registration"/>
+                </form>
+                <br/>
+                <div class="link">
+                <h6>Or Log In using</h6>
+                    <p><a th:href="@{/user/login}">Log In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

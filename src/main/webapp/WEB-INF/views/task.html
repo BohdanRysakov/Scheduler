@@ -3,24 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <title>task</title>
+    <link href="/resources/css/style.css" rel="stylesheet"/>
+    <link rel="icon" href="/resources/css/icon.png" type="image/png">
+    <link rel="shortcut icon" href="/resources/css/icon.png" type="image/png">
+    <script src="/resources/js/input_date.js"></script>
+    <script src="/resources/js/autosize.js"></script>
 </head>
+
 <body>
-<hr>
+
+<script type="text/javascript">
+ src="autoresize.jquery.js">
+    $('textarea#comment').autoResize({
+        // On resize:
+        onResize : function() {
+            $(this).css({opacity:0.8});
+        },
+        // After resize:
+        animateCallback : function() {
+            $(this).css({opacity:1});
+        },
+        // Quite slow animation:
+        animateDuration : 300,
+        // More extra space:
+        extraSpace : 40
+    });
+</script>
+<header>
+  <div class="logo">
+    
+      <img src="/resources/img/logo.jfif" width="60" height="60px"/>
+    
+  </div>
+
+    <p id="nameMenu" th:text="${user.name}">Name</p>
 
 
-<p th:text="${task.getName()}"></p>
-<p th:text="${task.getDescription()}"></p>
-<p th:text="${task.priority}"></p>
-<div th:switch="${task.dateIsEmpty()}">
-    <p th:case="${true}">No data term</p>
-    <p th:case="${false}" th:text="${task.date}"></p>
+
+    <div class="menu">
+        <ul>
+            <li> <a th:href="@{/user/login/createtask}">New Task</a></li>
+            <li><a th:href="@{/user/edit/{name}(name=${user.getName})}">Edit Account</a></li>
+            <li> <a th:href="@{/user/login/logout}">Logout</a></li>
+
+        </ul>
+
+    </div>
+  <div class="tel">
+  </div>
+</header>
+<div id="central">
+
+
+       <br>
+	   
+	   <p id="TaskName" th:text="${task.name}">Task Name</p>
+ 
+ 
+ 
+  <div class="menu">
+    <ul>
+      <li><a th:href="@{/user/login/{id}/edit(id=${task.getId()})}">Edit Task</a></li>
+      <li><form th:method="DELETE" th:action="@{/user/login/{id}/delete(id=${task.getId()})}">
+          <input type="submit" value="Delete"/>
+          </form></li>
+    
+    </ul>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+            
+              <p> Description:</p> <p class="taskData" th:text="${task.description}">Description</p>
+               <P>Data Term:</P><p class="taskData" th:text="${task.Date}">Date</p>
+               <p>Priority: </p><p class="taskData" th:text="${task.Priority}">Priority</p>
+            </div>
+
+<a th:href="@{/user/login}">Back to User Room</a>
+    </div>
 </div>
 
-<hr>
-<a th:href="@{/user/login/{id}/edit(id=${task.getId()})}">Edit</a>
-<hr><a th:href="@{/user/login/kostil}">To Room</a>
-<form th:method="DELETE" th:action="@{/user/login/{id}/delete(id=${task.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
+
+    
+          
+      
+	
+<script>
+		autosize(document.querySelectorAll('textarea'));
+	</script>
 </body>
 </html>

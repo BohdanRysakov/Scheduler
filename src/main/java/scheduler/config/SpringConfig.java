@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -28,6 +29,7 @@ import java.util.Arrays;
 @Configuration
 @ComponentScan("scheduler")
 @EnableWebMvc
+@ControllerAdvice
 public class SpringConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
@@ -42,7 +44,7 @@ public class SpringConfig implements WebMvcConfigurer {
     @Override
     public final void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/css")
+                .addResourceLocations("/resources/css","/resources/img","/resources/js")
                 .setCachePeriod(0);
     }
     @Autowired
