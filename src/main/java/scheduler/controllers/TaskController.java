@@ -107,7 +107,7 @@ public class TaskController {
         if(task==null){
             redirectAttributes.addFlashAttribute("error","Nice try");
             taskDAO.createTask(punishment(user.getId()), user.getId());
-            return "redirect:/user";
+            return "redirect:/user/login";
         }
         model.addAttribute("user",user);
         model.addAttribute("task", task);
@@ -165,7 +165,7 @@ public class TaskController {
 
                 taskDAO.createTask(punishment(user.getId()), user.getId());
 
-            return "redirect:/user";
+            return "redirect:/user/login";
         }
         model.addAttribute("task", task);
         model.addAttribute("user", user);
@@ -187,7 +187,7 @@ public class TaskController {
         if(task==null){
             taskDAO.createTask(punishment(user.getId()), user.getId());
             redirectAttributes.addFlashAttribute("error","Nice try");
-            return "redirect:/user";
+            return "redirect:/user/login";
         }
         taskDAO.deleteTask(id, user.getId());
         session.setAttribute("tasks",taskDAO.showTasks(user.getId()));

@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import scheduler.dao.UserDAO;
 import scheduler.dao.TaskDAO;
-import scheduler.exceptions.UserException;
+
+import scheduler.models.Task;
 import scheduler.models.User;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Objects;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/user")
@@ -28,8 +30,7 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String enter(HttpSession session, Model model,
-                        RedirectAttributes redirectAttributes) throws UserException {
+    public String enter(HttpSession session, Model model)  {
 
 
         if (session.getAttribute("user") == null) {
@@ -51,7 +52,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String enterInAccount(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes, Model model, HttpSession session) throws UserException {
+                                 RedirectAttributes redirectAttributes, Model model, HttpSession session){
         if (bindingResult.hasErrors()) {
             return "login";
         }
@@ -95,7 +96,6 @@ public class LoginController {
             }
             redirectAttributes.addFlashAttribute("errorName", "Name " + user.getName() + " is taken");
             return "redirect:/user/registration";
-            //throw new UserException("User with name: " + user.getName() + " already exist");
         }
         userDAO.save(user);
         user = userDAO.getUserByName(user.getName());
@@ -139,7 +139,12 @@ public class LoginController {
     }
 
     @DeleteMapping("/delete/{name}")
-    public String delete(@PathVariable("name") String name) {
+    public String delete(@PathVariable("name") String name, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        List<Task> listToDelete = (List<Task>) session.getAttribute("tasks");
+        for (Task task : listToDelete) {
+            taskDAO.deleteTask(task.getId(), user.getId());
+        }
         userDAO.delete(name);
         return "redirect:/user";
     }
