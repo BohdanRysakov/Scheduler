@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import scheduler.addition.Status;
 import scheduler.models.Task;
-import scheduler.models.User;
 
 import java.util.List;
 

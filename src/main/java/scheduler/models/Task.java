@@ -1,10 +1,7 @@
 package scheduler.models;
 
 import scheduler.addition.Status;
-import scheduler.exceptions.TaskException;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,8 +11,10 @@ import java.util.Date;
 public class Task  {
     private int idUser;
     @NotBlank(message = "Task's name can't be empty")
+    @Size(min=1,max=10, message = "Task Name must be between 1 and 10 characters")
     private String name;
     @NotBlank(message = "Description's name can't be empty")
+    @Size(min=1,max=255, message = "Description must be between 1 and 255 characters")
     private String description;
     private Date date;
     private Status priority;
@@ -81,7 +80,7 @@ public class Task  {
         this.description = description;
     }
 
-    public void setDate(String date) throws TaskException {
+    public void setDate(String date) {
         if(  date==null || date.equals("")){
             this.date=null;
         }
